@@ -1,0 +1,13 @@
+name: httpd-mock
+version: 0.1.0
+
+authors:
+  - maiha <maiha@wota.jp>
+
+targets:
+  httpd-mock:
+    main: src/httpd-mock.cr
+
+crystal: 1.5.1
+
+license: MIT
