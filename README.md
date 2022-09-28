@@ -7,7 +7,7 @@ A very simple httpd server for debugging.
 ## Usage
 
 ```console
-$ httpd-mock 0.0.0.0:8080
+$ httpd-mock :8080
 Listening on http://0.0.0.0:8080
 ```
 

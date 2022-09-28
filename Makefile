@@ -1,6 +1,5 @@
-all: run
 
-bin/httpd-mock:
+bin/httpd-mock: src/httpd-mock.cr
 	shards build --link-flags "-static" $(O)
 
 #DOCKER=docker run -t -u `id -u`:`id -g` -v $(PWD):/v -w /v --rm crystallang/crystal:1.5.1

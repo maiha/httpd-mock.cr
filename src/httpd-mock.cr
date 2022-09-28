@@ -28,7 +28,7 @@ record Bind,
 
 def extract_bind(str : String) : Bind
   case str
-  when /\A(\d+)\Z/      ; return Bind.new("0.0.0.0", $1.to_i32)
+  when /\A:(\d+)\Z/     ; return Bind.new("0.0.0.0", $1.to_i32)
   when /\A(.*?):(\d+)\Z/; return Bind.new($1, $2.to_i32)
   else                    abort "invalid bind adress: #{str}"
   end
@@ -69,16 +69,19 @@ def read_body(ctx)
   end
 end
 
-port = ARGV.shift { abort "usage: #{PROGRAM_NAME} localhost:8080"}
+debug = ARGV.delete("-d")
+port = ARGV.shift { abort "usage: #{PROGRAM_NAME} [-d] localhost:8080"}
 bind = extract_bind(port)
 
 server = HTTP::Server.new do |ctx|
   buf = process_request(ctx)
-  puts buf # debug
+  puts buf if debug
 
   ctx.response.content_type = "text/plain"
   ctx.response.puts buf
 end
+
+pp! ENV if debug
 
 server.bind_tcp(bind.host, bind.port)
 puts "Listening on http://#{bind.host}:#{bind.port}"
